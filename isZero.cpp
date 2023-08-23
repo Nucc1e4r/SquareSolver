@@ -1,6 +1,7 @@
 #include <math.h>
 #include <assert.h>
 #include "isZero.h"
+#include "sqrconst.h"
 
 /**
  *
@@ -16,7 +17,6 @@ bool isZero (double x) {
 
     assert(isfinite(x));
 
-    double eps = 1e-7; // 1e-7
     if (fabs(x) < eps) {
         return true;
     }

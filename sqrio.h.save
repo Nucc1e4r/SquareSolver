@@ -48,8 +48,10 @@ void inputSquareData (double* a, double* b, double* c);
  *
  */
 
-void printSolution(const nSolutions nRoots, const double* x1, const double* x2);
+void outputSquareSolution (nSolutions nRoots, double* x1, double* x2);
 
 void printEquation(const double a, const double b, const double c);
+
+void printSolution(const nSolutions nRoots, co);
 
 #endif

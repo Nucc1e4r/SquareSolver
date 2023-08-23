@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "isZero.h"
 #include "sqrio.h"
+#include "sqrconst.h"
 
 void inputSquareData(double* const a, double* const b, double* const c) { // const ptr
 
@@ -13,51 +14,69 @@ void inputSquareData(double* const a, double* const b, double* const c) { // con
     assert(b != c);
     assert(a != c);
 
-    printf("Input a, b, c:\n");
-    scanf("%lg %lg %lg", a, b, c);            // TODO: proceed input correctness
+    printf("ax^2 + bx + c = 0\n");
 
+    printf("Input a, b, c:\n");
+
+    int nCorrect = scanf("%lg %lg %lg", a, b, c);
+
+    if (nCorrect < params) {
+        printf("Something is wrong with your input, only %d of %d coefficients were read correctly. please try again\n", nCorrect, params);
+    }
 }
 
-void outputSquareSolution(nSolutions nRoots, double* x1, double* x2) {
 
-    assert(x1 != 0);
-    assert(x2 != 0);
-
-    assert(x1 != x2);
-
+void printSolution(const nSolutions nRoots, const double* x1, const double* x2) {
     switch (nRoots) {
+
         case TWO:
 
-            // Fixing negative zeros:
-            if (isZero(*x1)) *x1 = 0;
-            if (isZero(*x2)) *x2 = 0;
-
-            printf("x1 = %lg; x2 = %lg", *x1, *x2);
+            printf("two roots: x1 = %lg, x2 = %lg\n", *x1, *x2);
             break;
 
 
         case ONE:
 
-            // Fixing negative zeros:
-            if (isZero(*x1)) *x1 = 0;
-
-            printf("x = %lg", *x1);
+            printf("one root: x = %lg\n", *x1);
             break;
 
 
         case ZERO:
 
-            printf("No real solutions");
+            printf("no real solutions\n");
             break;
 
 
         case INF:
 
-            printf("x is any");
+            printf("infinite amount of solutions\n");
             break;
 
 
         default:
-            printf("!NUMBER OF ROOTS INTERPRETATION ERROR!");
+            printf("!NUMBER OF SOLUTIONS INTERPRETATION ERROR!");
+    }
+}
+
+
+
+void printEquation(const double a, const double b, const double c) {
+    if (isZero(a)) {
+
+        if (isZero(b))    printf("%lg = 0\n", c);
+        else if (b == 1)  printf("x + %lg = 0\n", c);
+        else              printf("%lgx + %lg = 0\n", b, c);
+
+    } else if (a == 1) {
+
+        if (isZero(b))    printf("x^2 + %lg = 0\n", c);
+        else if (b == 1)  printf("x^2 + x + %lg = 0\n", c);
+        else              printf("x^2 + %lgx + %lg = 0\n", b, c);
+
+    } else {
+
+        if (isZero(b))    printf("%lgx^2 + x^2 + %lg = 0\n", a, c);
+        else if (b == 1)  printf("%lgx^2 + x + %lg = 0\n", a, c);
+        else              printf("%lgx^2 + %lgx + %lg = 0\n", a, b, c);
     }
 }

@@ -4,6 +4,7 @@
 #include "sqrio.h"
 #include "isZero.h"
 #include "eqslv.h"
+#include "sqrconst.h"
 
 /**
  *
@@ -13,8 +14,15 @@
 
 #define DEBUG
 
+void printInfo();
 void startTests();
-void runTest(const double a, const double b, const double c, const nSolutions ansNSol, const double ansX1, const double ansX2, double* const x1, double* const x2, const int testID);
+void runTest(const int testID, const double a, const double b, const double c,
+             const nSolutions ansNSol, const double ansX1, const double ansX2,
+             double* const x1, double* const x2);
+void printTestError(const int testID,
+                    const double a, const double b, const double c,
+                    const nSolutions expecNSol, const double expecX1, const double expecX2,
+                    const nSolutions realNSol, double* const realX1, double* const realX2);
 
 /**
  *
@@ -26,18 +34,21 @@ void runTest(const double a, const double b, const double c, const nSolutions an
  *
  */
 
-//----------------------------------------------------------------------------------
+///--------------------------------------------------------------------------------------------
 
 int main () {
 
+    printInfo();
+
     #ifdef DEBUG
-        startTests();
+
+        printf("Do you want to run tests? [y/n]\n");
+        char ans;
+        scanf(" %c", &ans);
+
+        if (ans == 'y' or ans == 'Y') startTests();
+
     #endif
-
-    printf("# Square equation solver\n"
-           "# Made by: Nucc1e4r\n\n");
-
-    printf("ax^2 + bx + c = 0\n\n");
 
     double a = NAN, b = NAN, c = NAN;
 
@@ -49,13 +60,33 @@ int main () {
 
     nRoots = solveSquare(a, b, c, &x1, &x2);
 
+    if (nRoots == TWO) {
 
-    outputSquareSolution(nRoots, &x1, &x2);
+        fixNegativeZero(&x1);
+        fixNegativeZero(&x2);
+
+    } else if (nRoots == ONE) {
+
+        fixNegativeZero(&x1);
+
+    }
+
+    printSolution(nRoots, &x1, &x2);
 
     return 0;
 }
 
-//----------------------------------------------------------------------------------
+///--------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+void printInfo() {
+
+    printf("# Square equation solver\n"
+           "# Made by: Nucc1e4r\n\n");
+
+}
+
+//--------------------------------------------------------------------------------------------------
 
 /**
  *
@@ -94,7 +125,7 @@ void startTests() {
         {NAN, NAN},
         {5, 1},
         {-2, -3},
-        {-1, NAN}
+        {-1.6, NAN}
     };
 
     const nSolutions nAnswers[] = {
@@ -102,88 +133,76 @@ void startTests() {
     };
 
     for (int i = 0; i < sizeof(tests) / sizeof(tests[0]); i++) {
-        runTest(tests[i][0], tests[i][1], tests[i][2], nAnswers[i], answers[i][0], answers[i][1], &tx1, &tx2, i);
+        runTest(i, tests[i][0], tests[i][1], tests[i][2], nAnswers[i], answers[i][0], answers[i][1], &tx1, &tx2);
     }
 
     printf("All tests ran successfully\n\n");
 }
 
-void runTest(const double a, const double b, const double c,
+//------------------------------------------------------------------------------------------------------------------
+
+void runTest(const int testID, const double a, const double b, const double c,
                 const nSolutions ansNSol, const double ansX1, const double ansX2,
-                    double* const x1, double* const x2, const int testID) {
+                    double* const x1, double* const x2) {
 
     bool err = false;
 
     nSolutions gotNSol = solveSquare(a, b, c, x1, x2);
 
     if (gotNSol == ansNSol) {
+
         switch (ansNSol) {
+
             case TWO:
+
                 if (not (*x1 == ansX1 and *x2 == ansX2)) err = true;
                 break;
+
+
             case ONE:
+
                 if (not (*x1 == ansX1)) err = true;
                 break;
+
+
             case ZERO:
+
                 break;
+
+
             case INF:
+
                 break;
+
+
             default:
                 printf("!NUMBER OF SOLUTIONS INTERPRETATION ERROR!");
         }
+
     } else err = true;
 
     if (err) {
-        printf("Test %d failed!\n", testID);
-        printf("Equation: ");
-        if (isZero(a)) {
-            if (isZero(b)) printf("%lg = 0\n", c);
-            else if (b == 1) printf("x + %lg = 0\n", c);
-            else printf("%lgx + %lg = 0\n", b, c);
-        } else if (a == 1) {
-            if (isZero(b)) printf("x^2 + %lg = 0\n", c);
-            else if (b == 1) printf("x^2 + x + %lg = 0\n", c);
-            else printf("x^2 + %lgx + %lg = 0\n", b, c);
-        } else {
-            if (isZero(b)) printf("%lgx^2 + x^2 + %lg = 0\n", a, c);
-            else if (b == 1) printf("%lgx^2 + x + %lg = 0\n", a, c);
-            else printf("%lgx^2 + %lgx + %lg = 0\n", a, b, c);
-        }
-        printf("Expected answer:\n");
-        switch (ansNSol) {
-            case TWO:
-                printf("\ttwo roots: x1 = %lg, x2 = %lg\n", ansX1, ansX2);
-                break;
-            case ONE:
-                printf("\tone root: x = %lg\n", ansX1);
-                break;
-            case ZERO:
-                printf("\tno real solutions\n");
-                break;
-            case INF:
-                printf("\tinfinite amount of solutions\n");
-                break;
-            default:
-                printf("!NUMBER OF SOLUTIONS INTERPRETATION ERROR!");
-        }
-        printf("Got answer:\n");
-        switch (gotNSol) {
-            case TWO:
-                printf("\ttwo roots: x1 = %lg, x2 = %lg\n", *x1, *x2);
-                break;
-            case ONE:
-                printf("\tone root: x = %lg\n", *x1);
-                break;
-            case ZERO:
-                printf("\tno real solutions\n");
-                break;
-            case INF:
-                printf("\tinfinite amount of solutions\n");
-                break;
-            default:
-                printf("!NUMBER OF SOLUTIONS INTERPRETATION ERROR!");
-        }
+
+        printTestError(testID, a, b, c, ansNSol, ansX1, ansX2, gotNSol, x1, x2);
 
     } else printf("Test %d passed\n", testID);
 }
 
+//---------------------------------------------------------------------------------------------------
+
+void printTestError(const int testID,
+                    const double a, const double b, const double c,
+                    const nSolutions expecNSol, const double expecX1, const double expecX2,
+                    const nSolutions realNSol, double* const realX1, double* const realX2) {
+
+    printf("Test %d failed!\n", testID);
+    printf("Equation: "); printEquation(a, b, c);
+
+    printf("Expected answer:\n\t");
+    printSolution(expecNSol, &expecX1, &expecX2);
+
+    printf("Got answer:\n\t");
+    printSolution(realNSol, realX1, realX2);
+}
+
+//-------------------------------------------------------------------------------------------
