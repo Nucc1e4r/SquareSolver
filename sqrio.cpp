@@ -14,7 +14,7 @@ void inputSquareData(double* const a, double* const b, double* const c) { // con
     assert(b != c);
     assert(a != c);
 
-    printf("ax^2 + bx + c = 0\n");
+    printf(textFormat_bold "ax^2 + bx + c = 0\n" textFormat_default);
 
     printf("Input a, b, c:\n");
 
@@ -26,18 +26,18 @@ void inputSquareData(double* const a, double* const b, double* const c) { // con
 }
 
 
-void printSolution(const nSolutions nRoots, const double* x1, const double* x2) {
+void printSolution(const nSolutions nRoots, const double x1, const double x2) {
     switch (nRoots) {
 
         case TWO:
 
-            printf("two roots: x1 = %lg, x2 = %lg\n", *x1, *x2);
+            printf("two roots: x1 = %lg, x2 = %lg\n", x1, x2);
             break;
 
 
         case ONE:
 
-            printf("one root: x = %lg\n", *x1);
+            printf("one root: x = %lg\n",x1);
             break;
 
 

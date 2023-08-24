@@ -1,6 +1,7 @@
 #ifndef H_SQRIO
 #define H_SQRIO
 
+
 /**
  *
  * @brief Type for counting amount of equation solutions, used in solveSquare() and solveLinear()
@@ -22,6 +23,7 @@ enum nSolutions {   //  CamelCaseNaming structures classes enums with capital le
     INF = -1
 };
 
+
 /**
  *
  * @brief Inputs values a, b, c from keyboard (for ax^2 + bx + c = 0)
@@ -36,6 +38,7 @@ enum nSolutions {   //  CamelCaseNaming structures classes enums with capital le
 
 void inputSquareData (double* a, double* b, double* c);
 
+
 /**
  *
  * @brief Outputs final solution(s) to the equation
@@ -48,10 +51,21 @@ void inputSquareData (double* a, double* b, double* c);
  *
  */
 
-void outputSquareSolution (nSolutions nRoots, double* x1, double* x2);
+void printSolution(const nSolutions nRoots, const double* x1, const double* x2);
+
+
+/**
+ *
+ * @brief Outputs final solution(s) to the equation
+ *
+ * @param nRoots Number of solutions received from solveSquare()
+ * @param x1 Pointer to memory cell for first solution
+ * @param x2 Pointer to memory cell for second solution
+ *
+ * @return Nothing
+ *
+ */
 
 void printEquation(const double a, const double b, const double c);
-
-void printSolution(const nSolutions nRoots, co);
 
 #endif
