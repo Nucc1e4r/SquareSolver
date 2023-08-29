@@ -5,6 +5,8 @@
 #include "eqslv.h"
 #include "sqrconst.h"
 
+//-----------------------------------------------------------------------------------------------------------
+
 nSolutions solveSquare (const double a, const double b, const double c, double* x1, double* x2) {
 
     assert(isfinite(a));
@@ -29,6 +31,10 @@ nSolutions solveSquare (const double a, const double b, const double c, double* 
 
             *x1 = (-b + sqrtD) / (2*a);
             *x2 = (-b - sqrtD) / (2*a);
+
+            fixNegativeZero(x1);
+            fixNegativeZero(x2);
+
             return TWO;
 
         }
@@ -36,6 +42,9 @@ nSolutions solveSquare (const double a, const double b, const double c, double* 
         else if (isZero(D)) {
 
             *x1 = -b / (2*a);
+
+            fixNegativeZero(x1);
+
             return ONE;
 
         }
@@ -43,6 +52,8 @@ nSolutions solveSquare (const double a, const double b, const double c, double* 
         else return ZERO;
     }
 }
+
+//-------------------------------------------------------------------------------------------------------------
 
 nSolutions solveLinear (const double a, const double b, double* x) {
 
@@ -63,11 +74,20 @@ nSolutions solveLinear (const double a, const double b, double* x) {
     else /* if (a != 0) */ {
 
         *x = -b / a;
+
+        fixNegativeZero(x);
+
         return ONE;
 
     }
 }
 
+//------------------------------------------------------------------------------------------------------
+
 void fixNegativeZero(double* const x) {
+
     if (isZero(*x)) *x = 0;
+
 }
+
+//------------------------------------------------------------------------------------------

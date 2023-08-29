@@ -5,15 +5,7 @@
 #include "isZero.h"
 #include "eqslv.h"
 #include "sqrconst.h"
-
-
-/**
- *
- * @brief Debug mode, runs tests before launching program using startTests()
- *
- */
-
-#define DEBUG
+#include "sqrdbg.h"
 
 
 /**
@@ -38,19 +30,11 @@ void printInfo();
 
 ///--------------------------------------------------------------------------------------------
 
-int main () {
+int main (int argc, char* argv[]) {
 
     printInfo();
 
-    #ifdef DEBUG
-
-        printf("Do you want to run tests? [y/n]\n");
-        char ans;
-        scanf(" %c", &ans);
-
-        if (ans == 'y' or ans == 'Y') startTests();
-
-    #endif
+    debug(argc, argv);
 
     double a = NAN, b = NAN, c = NAN;
 
@@ -62,18 +46,7 @@ int main () {
 
     nRoots = solveSquare(a, b, c, &x1, &x2);
 
-    if (nRoots == TWO) {
-
-        fixNegativeZero(&x1);
-        fixNegativeZero(&x2);
-
-    } else if (nRoots == ONE) {
-
-        fixNegativeZero(&x1);
-
-    }
-
-    printSolution(nRoots, &x1, &x2);
+    printSolution(nRoots, x1, x2);
 
     return 0;
 }
