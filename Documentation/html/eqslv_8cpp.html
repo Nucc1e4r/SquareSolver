@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('eqslv_8cpp.html',''); initResizable();
 <div class="contents">
 <div class="textblock"><code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;assert.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="is_zero_8h_source.html">isZero.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dblequal_8h_source.html">dblequal.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sqrio_8h_source.html">sqrio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="eqslv_8h_source.html">eqslv.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sqrconst_8h_source.html">sqrconst.h</a>&quot;</code><br />
@@ -109,38 +109,8 @@ Functions</h2></td></tr>
 <tr class="memitem:addbf129e1596615b202e21f478468bf7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sqrio_8h.html#a3fe3617edc8d0ed2633c6ed1b48c4878">nSolutions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eqslv_8cpp.html#addbf129e1596615b202e21f478468bf7">solveLinear</a> (const double a, const double b, double *x)</td></tr>
 <tr class="memdesc:addbf129e1596615b202e21f478468bf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves a linear equation (ax + b = 0) and writes answer to memory cell.  <br /></td></tr>
 <tr class="separator:addbf129e1596615b202e21f478468bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a168877cd78a49740688b126a14ece81b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eqslv_8cpp.html#a168877cd78a49740688b126a14ece81b">fixNegativeZero</a> (double *const x)</td></tr>
-<tr class="memdesc:a168877cd78a49740688b126a14ece81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets value of x to 0 if x == -0.  <br /></td></tr>
-<tr class="separator:a168877cd78a49740688b126a14ece81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a168877cd78a49740688b126a14ece81b" name="a168877cd78a49740688b126a14ece81b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a168877cd78a49740688b126a14ece81b">&#9670;&#160;</a></span>fixNegativeZero()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void fixNegativeZero </td>
-          <td>(</td>
-          <td class="paramtype">double *const&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets value of x to 0 if x == -0. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>Pointer to memory cell for x</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Nothing </dd></dl>
-
-</div>
-</div>
 <a id="addbf129e1596615b202e21f478468bf7" name="addbf129e1596615b202e21f478468bf7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#addbf129e1596615b202e21f478468bf7">&#9670;&#160;</a></span>solveLinear()</h2>
 

@@ -31,17 +31,4 @@ nSolutions solveSquare (const double a, const double b, const double c, double* 
 
 nSolutions solveLinear (const double a, const double b, double* x);
 
-
-/**
- *
- * @brief Sets value of x to 0 if x == -0
- *
- * @param x Pointer to memory cell for x
- *
- * @return Nothing
- *
- */
-
-void fixNegativeZero(double* const x);
-
 #endif

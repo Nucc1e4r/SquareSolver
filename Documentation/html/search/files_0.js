@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['eqslv_2ecpp_0',['eqslv.cpp',['../eqslv_8cpp.html',1,'']]],
-  ['eqslv_2eh_1',['eqslv.h',['../eqslv_8h.html',1,'']]]
+  ['dblequal_2ecpp_0',['dblequal.cpp',['../dblequal_8cpp.html',1,'']]],
+  ['dblequal_2eh_1',['dblequal.h',['../dblequal_8h.html',1,'']]]
 ];

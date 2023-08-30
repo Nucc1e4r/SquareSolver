@@ -5,15 +5,12 @@
 #define defaultTestFileName "Tests/defaultTests.txt"
 
 struct Coeffs {
-
     double a, b, c;
-
 };
 
 struct Roots {
-
     double x1, x2;
-
+    nSolutions nRoots;
 };
 
 
@@ -24,12 +21,9 @@ struct Roots {
  */
 
 struct TestData {
-
     int testID;
     Coeffs coeffs;
     Roots roots;
-    nSolutions nRoots;
-
 };
 
 
@@ -104,6 +98,30 @@ void getTestFromFile(FILE* inputFile, TestData* test);
  *
  */
 
-bool debug(int argc, char* argv[]);
+bool isDebug(int argc, char* argv[]);
+
+
+/**
+ *
+ * @brief Uses printHelp() if --help was in launch flags
+ *
+ * @param argc, argv amount and array of launch flags
+ *
+ * @return true if help was shown, false otherwise
+ *
+ */
+
+bool isHelp(int argc, char* argv[]);
+
+
+/**
+ *
+ * @brief Prints help information about using the program.
+ *
+ * @return nothing
+ *
+ */
+
+void printHelp();
 
 #endif

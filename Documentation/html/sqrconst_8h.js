@@ -1,5 +1,6 @@
 var sqrconst_8h =
 [
+    [ "maxTestAmount", "sqrconst_8h.html#a3c0564d3a282f476e1f4571730a4ce7e", null ],
     [ "textFormat_bold", "sqrconst_8h.html#a4decf189d4772f8cb2a4057924c2978d", null ],
     [ "textFormat_cursive", "sqrconst_8h.html#aa0f5ce5461cbba966e58dae57f42dcef", null ],
     [ "textFormat_cursive_underline", "sqrconst_8h.html#ac828cd6aedea21ccd2d8d679e0a7dc67", null ],

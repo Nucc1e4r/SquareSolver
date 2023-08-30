@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fixnegativezero_0',['fixNegativeZero',['../eqslv_8cpp.html#a168877cd78a49740688b126a14ece81b',1,'fixNegativeZero(double *const x):&#160;eqslv.cpp'],['../eqslv_8h.html#a168877cd78a49740688b126a14ece81b',1,'fixNegativeZero(double *const x):&#160;eqslv.cpp']]]
+  ['gettestfromfile_0',['getTestFromFile',['../sqrdbg_8cpp.html#a52d1c1090f321dc7e0fd05aebec35e2c',1,'getTestFromFile(FILE *inputFile, TestData *test):&#160;sqrdbg.cpp'],['../sqrdbg_8h.html#a52d1c1090f321dc7e0fd05aebec35e2c',1,'getTestFromFile(FILE *inputFile, TestData *test):&#160;sqrdbg.cpp']]]
 ];

@@ -11,12 +11,13 @@
 
 void getTestFromFile(FILE* inputFile, TestData* test) {
 
-    int nRoots = NAN;
+    int nRoots = 0;
 
-    fscanf(inputFile, "%d %lg %lg %lg %lg %lg %d\n", &test -> testID, &test -> coeffs.a, &test -> coeffs.b, &test -> coeffs.c,
-                                                                &test -> roots.x1, &test -> roots.x2, &nRoots);
-    test -> nRoots = (nSolutions)nRoots;
-
+    fscanf(inputFile, "%d %lg %lg %lg %lg %lg %d\n", 
+           &test->testID, &test->coeffs.a, 
+           &test->coeffs.b, &test->coeffs.c,
+           &test->roots.x1, &test->roots.x2, &nRoots);
+    test->roots.nRoots = (nSolutions)nRoots;
 }
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -26,9 +27,7 @@ void startTests(const TestData tests[], const int testAmount) {
     double tx1 = NAN, tx2 = NAN;
 
     for (int i = 0; i < testAmount; i++) {
-
         runTest(&tests[i], &tx1, &tx2);
-
     }
 
     printf(textFormat_cursive "All tests ran successfully\n\n" textFormat_default);
@@ -36,64 +35,52 @@ void startTests(const TestData tests[], const int testAmount) {
 
 //------------------------------------------------------------------------------------------------------------------
 
-void runTest(const TestData* data,
-                    double* const x1, double* const x2) {
+void runTest(const TestData* data, double* const x1, double* const x2) {
 
     bool err = false;
 
     nSolutions gotNRoots = solveSquare(data->coeffs.a, data->coeffs.b, data->coeffs.c, x1, x2);
 
-    if (gotNRoots == data->nRoots) {
-
-        switch (data->nRoots) {
-
+    if (gotNRoots == data->roots.nRoots) {
+        switch (data->roots.nRoots) {
             case TWO:
-
-                if (not (doubleEqual(*x1, data->roots.x1) and doubleEqual(*x2, data->roots.x2))) err = true;
+                if (!(doubleEqual(*x1, data->roots.x1) && doubleEqual(*x2, data->roots.x2))) 
+                    err = true;
                 break;
-
 
             case ONE:
-
-                if (not (doubleEqual(*x1, data->roots.x1))) err = true;
+                if (!(doubleEqual(*x1, data->roots.x1))) err = true;
                 break;
-
 
             case ZERO:
-
-                break;
-
-
             case INF:
-
                 break;
-
 
             default:
                 printf("!NUMBER OF SOLUTIONS INTERPRETATION ERROR!");
         }
-
-    } else err = true;
+    } else {
+        err = true;
+    }
 
     if (err) {
-
         printTestError(data, gotNRoots, x1, x2);
-
-    } else printf(textFormat_success "Test %d passed\n" textFormat_default, data->testID);
+    } else {
+        printf(textFormat_success "Test %d passed\n" textFormat_default, data->testID);
+    }
 }
 
 //-----------------------------------------------------------------------------------------------------------------
 
-void printTestError(const TestData* expecData,
-                    const nSolutions realNSol, double* const realX1, double* const realX2) {
+void printTestError(const TestData* expecData, const nSolutions realNSol, double* const realX1, double* const realX2) {
 
     printf(textFormat_error "Test %d failed!\n" textFormat_default, expecData->testID);
-    printf(textFormat_cursive_underline "Equation:" textFormat_default " "); printEquation(expecData->coeffs.a,
-                                                                                            expecData->coeffs.b,
-                                                                                            expecData->coeffs.c);
+
+    printf(textFormat_cursive_underline "Equation:" textFormat_default " "); 
+    printEquation(expecData->coeffs.a, expecData->coeffs.b, expecData->coeffs.c);
 
     printf(textFormat_cursive_underline "Expected answer:\n\t" textFormat_default);
-    printSolution(expecData->nRoots, expecData->roots.x1, expecData->roots.x2);
+    printSolution(expecData->roots.nRoots, expecData->roots.x1, expecData->roots.x2);
 
     printf(textFormat_cursive_underline "Got answer:\n\t" textFormat_default);
     printSolution(realNSol, *realX1, *realX2);
@@ -101,68 +88,76 @@ void printTestError(const TestData* expecData,
 
 //------------------------------------------------------------------------------------------------------------------------
 
-bool debug(int argc, char* argv[]) {
+bool isDebug(int argc, char* argv[]) {
 
-    bool debug = false, testsFromFile = false;
+    bool isDebug = false, testsFromFile = false;
 
     if (argc > 1) {
 
-        int fileNamePos = NAN;
+        int fileNamePos = 0;
 
         for (int i = 1; i < argc; i++) {
-
-            if (not strcmp("-t", argv[i])) {
-
-                debug = true;
-
+            if (!strcmp("-t", argv[i])) { 
+                isDebug = true;
             }
-
-            else if (not strcmp("-f", argv[i])) {
-
+            else if (!strcmp("-f", argv[i])) {
                 testsFromFile = true;
                 fileNamePos = i + 1;
-
             }
-
         }
 
-        if (debug) {
+        if (isDebug) {
 
-
-            FILE* inpF;
-            int testAmount = NAN;
+            FILE* inpF = nullptr;
+            int testAmount = 0;
 
             if (testsFromFile) {
-
                 inpF = fopen(argv[fileNamePos], "r");
-
-            }
-
-            else {
-
+            } else {
                 inpF = fopen(defaultTestFileName, "r");
-
             }
 
-            fscanf(inpF, "%d", &testAmount);
+            if (fscanf(inpF, "%d", &testAmount) == 1) {
+                TestData tests[maxTestAmount] = {};
 
-            TestData tests[10];
+                for (int i = 0; i < testAmount; i++) {
+                    getTestFromFile(inpF, &tests[i]);
+                }
 
-            for (int i = 0; i < testAmount; i++) {
+                fclose(inpF);
 
-                getTestFromFile(inpF, &tests[i]);
-
+                startTests(tests, testAmount);
+            } else {
+                printf(textFormat_error "!ERROR: CANNOT READ AMOUNT OF TESTS FROM FILE!\n" textFormat_default);
             }
-
-            fclose(inpF);
-
-            startTests(tests, testAmount);
-
         }
 
     }
 
-    return debug;
+    return isDebug;
 }
 
 //------------------------------------------------------------------------------------------------------------------------
+
+bool isHelp(int argc, char* argv[]) {
+    if (argc > 1) {
+        for (int i = 1; i < argc; i++) {
+            if (!strcmp("--help", argv[i])) { 
+
+                printHelp();
+                return true;
+            }
+        }  
+    }
+    return false;
+}
+
+//------------------------------------------------------------------------------------------
+
+void printHelp() {
+    printf("Usage: main [options]\n"
+            "Options:\n"
+                "\t-t\t\t\tStart tests\n"
+                "\t-t -f *filename*\tStart custom tests from file *filename*\n"
+                "\t--help\t\t\tDisplay help\n");
+}

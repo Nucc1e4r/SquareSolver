@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['x1_0',['x1',['../struct_roots.html#a8e03a9505f8fd16a671cdc446ce48d7a',1,'Roots']]],
-  ['x2_1',['x2',['../struct_roots.html#a2ba5be788affd19f80ec3855cb944e88',1,'Roots']]]
+  ['zero_0',['ZERO',['../sqrio_8h.html#a3fe3617edc8d0ed2633c6ed1b48c4878ae117e3533122c80b262257b49b21cddf',1,'sqrio.h']]]
 ];
