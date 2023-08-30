@@ -5,6 +5,7 @@
 #include "eqslv.h"
 #include "sqrdbg.h"
 #include "sqrconst.h"
+#include "dblequal.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -48,13 +49,13 @@ void runTest(const TestData* data,
 
             case TWO:
 
-                if (not (*x1 == data->roots.x1 and *x2 == data->roots.x2)) err = true;
+                if (not (doubleEqual(*x1, data->roots.x1) and doubleEqual(*x2, data->roots.x2))) err = true;
                 break;
 
 
             case ONE:
 
-                if (not (*x1 == data->roots.x1)) err = true;
+                if (not (doubleEqual(*x1, data->roots.x1))) err = true;
                 break;
 
 
@@ -145,7 +146,7 @@ bool debug(int argc, char* argv[]) {
 
             fscanf(inpF, "%d", &testAmount);
 
-            TestData tests[testAmount];
+            TestData tests[10];
 
             for (int i = 0; i < testAmount; i++) {
 

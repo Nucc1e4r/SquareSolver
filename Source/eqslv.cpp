@@ -1,6 +1,6 @@
 #include <math.h>
 #include <assert.h>
-#include "isZero.h"
+#include "dblequal.h"
 #include "sqrio.h"
 #include "eqslv.h"
 #include "sqrconst.h"
@@ -17,7 +17,7 @@ nSolutions solveSquare (const double a, const double b, const double c, double* 
     assert(x2 != 0);
     assert(x1 != x2);
 
-    if (isZero(a)) {
+    if (doubleEqual(a, 0)) {
 
         return solveLinear(b, c, x1);
 
@@ -39,7 +39,7 @@ nSolutions solveSquare (const double a, const double b, const double c, double* 
 
         }
 
-        else if (isZero(D)) {
+        else if (doubleEqual(D, 0)) {
 
             *x1 = -b / (2*a);
 
@@ -62,9 +62,9 @@ nSolutions solveLinear (const double a, const double b, double* x) {
     assert(isfinite(a));
     assert(isfinite(b));
 
-    if (isZero(a)) {
+    if (doubleEqual(a, 0)) {
 
-        if (isZero(b)) {
+        if (doubleEqual(b, 0)) {
             return INF;
         }
 
@@ -86,7 +86,7 @@ nSolutions solveLinear (const double a, const double b, double* x) {
 
 void fixNegativeZero(double* const x) {
 
-    if (isZero(*x)) *x = 0;
+    if (doubleEqual(*x, 0)) *x = 0;
 
 }
 

@@ -2,7 +2,7 @@
 #include <math.h>
 #include <assert.h>
 #include "sqrio.h"
-#include "isZero.h"
+#include "dblequal.h"
 #include "eqslv.h"
 #include "sqrconst.h"
 #include "sqrdbg.h"

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
-#include "isZero.h"
+#include "dblequal.h"
 #include "sqrio.h"
 #include "sqrconst.h"
 
@@ -61,22 +61,22 @@ void printSolution(const nSolutions nRoots, const double x1, const double x2) {
 
 
 void printEquation(const double a, const double b, const double c) {
-    if (isZero(a)) {
+    if (doubleEqual(a, 0)) {
 
-        if (isZero(b))    printf("%lg = 0\n", c);
-        else if (b == 1)  printf("x + %lg = 0\n", c);
-        else              printf("%lgx + %lg = 0\n", b, c);
+        if (doubleEqual(b, 0))       printf("%lg = 0\n", c);
+        else if (doubleEqual(b, 1))    printf("x + %lg = 0\n", c);
+        else                         printf("%lgx + %lg = 0\n", b, c);
 
-    } else if (a == 1) {
+    } else if (doubleEqual(a, 1)) {
 
-        if (isZero(b))    printf("x^2 + %lg = 0\n", c);
-        else if (b == 1)  printf("x^2 + x + %lg = 0\n", c);
-        else              printf("x^2 + %lgx + %lg = 0\n", b, c);
+        if (doubleEqual(b, 0))          printf("x^2 + %lg = 0\n", c);
+        else if (doubleEqual(b, 1))       printf("x^2 + x + %lg = 0\n", c);
+        else                            printf("x^2 + %lgx + %lg = 0\n", b, c);
 
     } else {
 
-        if (isZero(b))    printf("%lgx^2 + x^2 + %lg = 0\n", a, c);
-        else if (b == 1)  printf("%lgx^2 + x + %lg = 0\n", a, c);
-        else              printf("%lgx^2 + %lgx + %lg = 0\n", a, b, c);
+        if (doubleEqual(b, 0))          printf("%lgx^2 + x^2 + %lg = 0\n", a, c);
+        else if (doubleEqual(b, 1))       printf("%lgx^2 + x + %lg = 0\n", a, c);
+        else                            printf("%lgx^2 + %lgx + %lg = 0\n", a, b, c);
     }
 }
