@@ -35,9 +35,10 @@ struct TestData {
 
 /**
  *
- * @brief Runs some default tests to check if everything works correctly.
+ * @brief Runs given tests to check if program works correctly
  *
- * Can be disabled by deleting "#define DEBUG" from main file.
+ * @param tests Array of given tests
+ * @param testAmount Amount of given tests
  *
  * @return Nothing
  *
@@ -99,10 +100,10 @@ void getTestFromFile(FILE* inputFile, TestData* test);
  *
  * @param argc, argv amount and array of launch flags
  *
- * @return Nothing
+ * @return true if debug was started, false otherwise
  *
  */
 
-void debug(int argc, char* argv[]);
+bool debug(int argc, char* argv[]);
 
 #endif

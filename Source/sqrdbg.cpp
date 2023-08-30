@@ -100,7 +100,7 @@ void printTestError(const TestData* expecData,
 
 //------------------------------------------------------------------------------------------------------------------------
 
-void debug(int argc, char* argv[]) {
+bool debug(int argc, char* argv[]) {
 
     bool debug = false, testsFromFile = false;
 
@@ -161,6 +161,7 @@ void debug(int argc, char* argv[]) {
 
     }
 
+    return debug;
 }
 
 //------------------------------------------------------------------------------------------------------------------------

@@ -34,19 +34,21 @@ int main (int argc, char* argv[]) {
 
     printInfo();
 
-    debug(argc, argv);
+    if (not debug(argc, argv)) {
 
-    double a = NAN, b = NAN, c = NAN;
+        double a = NAN, b = NAN, c = NAN;
 
-    inputSquareData(&a, &b, &c);
+        inputSquareData(&a, &b, &c);
 
 
-    double x1 = NAN, x2 = NAN;
-    nSolutions nRoots = ZERO;
+        double x1 = NAN, x2 = NAN;
+        nSolutions nRoots = ZERO;
 
-    nRoots = solveSquare(a, b, c, &x1, &x2);
+        nRoots = solveSquare(a, b, c, &x1, &x2);
 
-    printSolution(nRoots, x1, x2);
+        printSolution(nRoots, x1, x2);
+
+    }
 
     return 0;
 }
