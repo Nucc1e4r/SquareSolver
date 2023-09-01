@@ -5,7 +5,7 @@ CFLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equ
 
 all: compile link
 
-compile: SquareSolver.o sqrio.o sqrdbg.o eqslv.o dblequal.o
+compile: SquareSolver.o $(OBJ)/sqrio.o sqrdbg.o eqslv.o dblequal.o
 
 link:
 	g++ $(OBJ)/*.o -o $(OUTPUT)
@@ -13,7 +13,9 @@ link:
 SquareSolver.o: $(SRC)/SquareSolver.cpp
 	g++ -c $(SRC)/SquareSolver.cpp -o $(OBJ)/SquareSolver.o $(CFLAGS)
 
-sqrio.o: $(SRC)/sqrio.cpp
+# $@
+
+$(OBJ)/sqrio.o: $(SRC)/sqrio.cpp
 	g++ -c $(SRC)/sqrio.cpp -o $(OBJ)/sqrio.o $(CFLAGS)
 
 sqrdbg.o: $(SRC)/sqrdbg.cpp

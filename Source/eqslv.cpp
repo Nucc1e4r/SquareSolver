@@ -33,11 +33,14 @@ nSolutions solveSquare (const double a, const double b, const double c, double* 
         return solveLinear(b, c, x1);
     }
 
+    // c == 0; x^2 + x = 0;
+
     double D = b*b - 4*a*c;
 
     if (doubleEqual(D, 0)) {
 
         *x1 = -b / (2*a);
+        *x2 = NAN;
         fixNegativeZero(x1);
         return ONE;
 

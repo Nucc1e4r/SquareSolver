@@ -7,12 +7,21 @@
 #include "sqrconst.h"
 #include "dblequal.h"
 
+/**
+ *
+ * @brief Prints help information about using the program.
+ *
+ * @return nothing
+ *
+ */
+static void printHelp();
+
 //-------------------------------------------------------------------------------------------------------------------------------------
 
 void getTestFromFile(FILE* inputFile, TestData* test) {
 
     int nRoots = 0;
-
+                                                                    //check format
     fscanf(inputFile, "%d %lg %lg %lg %lg %lg %d\n", 
            &test->testID, &test->coeffs.a, 
            &test->coeffs.b, &test->coeffs.c,
@@ -22,7 +31,7 @@ void getTestFromFile(FILE* inputFile, TestData* test) {
 
 //---------------------------------------------------------------------------------------------------------------------
 
-void startTests(const TestData tests[], const int testAmount) {
+void startTests(const TestData tests[], const int testAmount) { //count testAmount automatically
 
     double tx1 = NAN, tx2 = NAN;
 
@@ -44,12 +53,15 @@ void runTest(const TestData* data, double* const x1, double* const x2) {
     if (gotNRoots == data->roots.nRoots) {
         switch (data->roots.nRoots) {
             case TWO:
-                if (!(doubleEqual(*x1, data->roots.x1) && doubleEqual(*x2, data->roots.x2))) 
+                if (!(doubleEqual(*x1, data->roots.x1) && doubleEqual(*x2, data->roots.x2))) {
                     err = true;
+                }
                 break;
 
             case ONE:
-                if (!(doubleEqual(*x1, data->roots.x1))) err = true;
+                if (!(doubleEqual(*x1, data->roots.x1))) {
+                    err = true;
+                }
                 break;
 
             case ZERO:
@@ -92,7 +104,7 @@ bool isDebug(int argc, char* argv[]) {
 
     bool isDebug = false, testsFromFile = false;
 
-    if (argc > 1) {
+    if (argc > 1) {// -l, -s
 
         int fileNamePos = 0;
 
@@ -112,10 +124,11 @@ bool isDebug(int argc, char* argv[]) {
             int testAmount = 0;
 
             if (testsFromFile) {
-                inpF = fopen(argv[fileNamePos], "r");
+                inpF = fopen(argv[fileNamePos], "r");//check if exists
             } else {
                 inpF = fopen(defaultTestFileName, "r");
             }
+            //check if file exists
 
             if (fscanf(inpF, "%d", &testAmount) == 1) {
                 TestData tests[maxTestAmount] = {};
@@ -128,7 +141,7 @@ bool isDebug(int argc, char* argv[]) {
 
                 startTests(tests, testAmount);
             } else {
-                printf(textFormat_error "!ERROR: CANNOT READ AMOUNT OF TESTS FROM FILE!\n" textFormat_default);
+                printf(textFormat_error "!ERROR: CANNOT READ AMOUNT OF TESTS FROM FILE!\n" textFormat_default); //?
             }
         }
 
@@ -154,7 +167,7 @@ bool isHelp(int argc, char* argv[]) {
 
 //------------------------------------------------------------------------------------------
 
-void printHelp() {
+static void printHelp() {
     printf("Usage: main [options]\n"
             "Options:\n"
                 "\t-t\t\t\tStart tests\n"

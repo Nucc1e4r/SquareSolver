@@ -14,7 +14,7 @@
  *
  */
 
-void printInfo();
+static void printInfo();
 
 
 
@@ -30,14 +30,14 @@ void printInfo();
 
 ///--------------------------------------------------------------------------------------------
 
-int main (int argc, char* argv[]) {
-
+int main/***/ (const int argc, char* argv[]) {
+                                            //edit make, clear || git ignore
     printInfo();
 
     if (isHelp(argc, argv))
         return 0;
 
-    if (isDebug(argc, argv)) 
+    if (isDebug(argc, argv)) //tests
         return 0;
 
     double a = NAN, b = NAN, c = NAN;
@@ -57,7 +57,7 @@ int main (int argc, char* argv[]) {
 ///--------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
-void printInfo() {
+static void printInfo() {
 
     printf("# Square equation solver\n"
            "# Made by: Nucc1e4r\n\n");

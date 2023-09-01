@@ -113,15 +113,4 @@ bool isDebug(int argc, char* argv[]);
 
 bool isHelp(int argc, char* argv[]);
 
-
-/**
- *
- * @brief Prints help information about using the program.
- *
- * @return nothing
- *
- */
-
-void printHelp();
-
 #endif

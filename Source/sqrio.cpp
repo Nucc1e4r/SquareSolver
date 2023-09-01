@@ -4,7 +4,7 @@
 #include "sqrio.h"
 #include "sqrconst.h"
 
-void inputSquareData(double* const a, double* const b, double* const c) {
+void inputSquareData(double* const a, double* const b, double* const c) { //aPtr, bPtr...
 
     assert(a != nullptr);
     assert(b != nullptr);
@@ -21,8 +21,8 @@ void inputSquareData(double* const a, double* const b, double* const c) {
 
     if (nCorrect < params) {
         printf("Something is wrong with your input, only %d of %d coefficients were read correctly. please try again\n\n", nCorrect, params);
-        fflush(stdin);
-        inputSquareData(a, b, c);
+        fflush(stdin); //do new
+        inputSquareData(a, b, c); //cycle
     }
 }
 
